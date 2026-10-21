@@ -43,3 +43,11 @@ bunx nx run golf-api:deploy
 ```
 
 Pass `budgetEmail` on the budgets deploy when you want notifications. Do not commit the address.
+
+## Cloud agents
+
+pstack writers run as cloud agents. The model table is `.cursor/rules/pstack-cloud.mdc`. If `bun` or `node_modules` is missing, run `bash .cursor/cloud-install.sh`. The Bun version is the `packageManager` field in `package.json`.
+
+A Build exists only after Mike points the environment.json location at `.cursor/environment.json` and triggers it. The steps are in [Trigger a Cloud Agent Build](docs/runbooks/cloud-agent-build.md).
+
+Until `/verify-golf-api` is merged from `cursor/verify-golf-api-skill-ca4b`, the check is `tools/verify.sh`.

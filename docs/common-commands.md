@@ -1,6 +1,6 @@
 # Common commands
 
-Run these from the repository root after `bun install`.
+Run these from the repository root after `bun install`. If `bun` or `node_modules` is missing, run `bash .cursor/cloud-install.sh` first. That script reads the Bun version from `packageManager` in `package.json`.
 
 ```bash
 bun run lint

@@ -2,7 +2,7 @@
 
 ## `bun: command not found`
 
-Install Bun 1.4.3, the version in the root `packageManager` field. Then run `bun install` from the repository root.
+Install the Bun version named by `packageManager` in the root `package.json`. From the repository root, run `bash .cursor/cloud-install.sh` when `bun` or `node_modules` is missing. Otherwise run `bun install`.
 
 ## ESLint reports a module boundary error
 

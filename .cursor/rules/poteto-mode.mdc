@@ -7,8 +7,8 @@ For a non-trivial task, invoke `/poteto-mode` first and follow its playbook. Non
 
 Delegates that write code set `subagent_type` to `poteto-agent`. A routed pstack skill such as `/interrogate` picks its own subagent type. Keep that subagent type.
 
-pstack model choices for this repo are in `.cursor/rules/pstack-cloud.mdc`. The budget is large. Build roles use `grok-4.7-xhigh-fast`. Judgment uses `grok-4.7-xhigh`.
+pstack model choices for this repo are in `.cursor/rules/pstack-cloud.mdc`. That file overrides pstack skill default slugs and a missing `~/.cursor/rules/pstack-models.mdc`. The budget is large. Build roles use `grok-4.7-xhigh-fast`. Reviewer seats use a different slug. The builder slug without `-fast` is not a reviewer seat.
 
-The stack is TypeScript, Nx, Bun, and AWS CDK. Never use pnpm. Mike asked for AWS CDK in this repo. The CDK app is `apps/golf-api`.
+The stack is TypeScript, Nx, Bun, and AWS CDK. Never use pnpm. Mike asked for AWS CDK in this repo. The CDK apps are `apps/budgets` and `apps/golf-api`.
 
 Source control is GitHub.

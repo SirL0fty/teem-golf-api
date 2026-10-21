@@ -1,5 +1,5 @@
 ---
-description: Run pstack subagents as Cursor cloud agents and pin this repo's Grok models.
+description: Authoritative pstack model table for this repo. Overrides skill default slugs and a missing home model file.
 alwaysApply: true
 ---
 
@@ -11,40 +11,45 @@ Pass `cloud_base_branch` when the subagent must start from a branch other than t
 
 Each writer gets its own `cursor/` branch. Do not create a git worktree for that work.
 
-Set `environment` to `local` only when the task needs the user's own machine. That covers a simulator, local IDE state, a transcript that exists only on that machine, or a credential that exists only there.
+Set `environment` to `local` only when the task needs this machine. That covers a simulator, local IDE state, a transcript that exists only on that machine, or a credential that exists only there.
 
-In `/arena` Phase A step 4, "own output location" means that runner's own cloud agent and its own `cursor/` branch.
+Orchestrate's sub-coordinator stays `local`. It needs the coordinator's store, and a cloud agent cannot read that store. Workers that the sub-coordinator spawns still use `environment` `cloud`, unless the task needs this machine.
 
-A cloud brief stands alone. State the goal, the files in scope, the base branch, and how to tell the work is done.
+## Arena and architect
+
+`/arena` and `/architect` use the same handoff. The parent sets each runner's `environment` to `cloud`. Each runner pushes its candidate to its own `cursor/` branch. The parent fetches those branches before judging or grafting. A git worktree is not the candidate output location.
 
 Every build brief ends with this sentence.
 
-`use /control-app to verify and show me a video and screenshots as proof.`
+`Run tools/verify.sh. After branch cursor/verify-golf-api-skill-ca4b is merged, use /verify-golf-api.`
 
 # Models
 
-Cloud agents cannot read `~/.cursor/rules`. These lines are the pstack model table for this repo. Use Grok models only. If the tool rejects a slug, use the nearest Grok slug and say which one you used.
+This file is the model table for this repository. It overrides pstack skill default slugs, including any default that is not listed here. It also overrides a missing `~/.cursor/rules/pstack-models.mdc`. Cloud VMs do not have that home file. Use only the slugs in the table below. Do not pass a skill default slug to the Task tool.
 
-Read each line as one role, then a colon, then one or more slugs. Split slugs on commas. The role names `feature, refactoring` and `reflect judgment, divergent, synthesizer` contain commas, and each is still one role. Start one subagent per slug. `arena cross-judge pool` is the exception. Pick one slug from that pool, and pick a slug other than the model that wrote the change when the pool contains one.
+Use Grok slugs only. Each model field holds one slug. A single-seat line is one slug. A panel line is a comma-separated list, and each entry is one slug. `arena cross-judge pool` is a list. Pick one slug from that pool, and pick a slug other than the model that wrote the change.
 
-Mike wants reviewers on a different Grok model from the builder, so a check sees the work differently. Builders use `grok-4.7-xhigh-fast`.
+The builder slug is `grok-4.7-xhigh-fast`. Removing `-fast` leaves `grok-4.7-xhigh`. That slug is the same model as the builder. It is not a reviewer seat, and it is not in this table. Reviewer seats use a different slug.
+
+`grok-4.5-high` is not a Task slug. The seat that used it now uses `cursor-grok-4.6-high`. The table writes `cursor-grok-4.6-xhigh`. The Task tool rewrites `grok-4.6-xhigh` to that listed slug.
+
+If the Task tool rejects a slug, use the nearest slug from this table and say which one you used.
 
 # budget: large (xhigh)
 feature, refactoring: grok-4.7-xhigh-fast
 bug-fix: grok-4.7-xhigh-fast
 perf-issue: grok-4.7-xhigh-fast
 hillclimb: grok-4.7-xhigh-fast
-judgment and prose: grok-4.7-xhigh
-hardest tasks: grok-4.7-xhigh
+judgment and prose: cursor-grok-4.6-xhigh
+hardest tasks: grok-4.7-xhigh-fast
 how explorer: grok-4.7-xhigh-fast
-how explainer: grok-4.7-xhigh
-why investigators: grok-4.7-xhigh-fast, grok-4.6-xhigh
-why synthesizer: grok-4.7-xhigh
-reflect tooling: grok-4.7-xhigh-fast
-reflect divergent: grok-4.6-xhigh
-reflect judgment, divergent, synthesizer: grok-4.6-xhigh
-arena runners: grok-4.7-xhigh, grok-4.6-xhigh
-arena cross-judge pool: grok-4.6-xhigh, grok-4.5-high
+how explainer: cursor-grok-4.6-xhigh
+why investigators: grok-4.7-xhigh-fast
+why synthesizer: cursor-grok-4.6-xhigh
+reflect tooling: cursor-grok-4.6-high
+reflect judgment, divergent, synthesizer: cursor-grok-4.6-xhigh
+arena runners: grok-4.7-xhigh-fast, cursor-grok-4.6-xhigh
+arena cross-judge pool: cursor-grok-4.6-high, grok-4.7-high
 swarm workers: grok-4.7-xhigh-fast
-architect runners: grok-4.7-xhigh, grok-4.6-xhigh
-interrogate reviewers: grok-4.6-xhigh, grok-4.5-high, grok-4.7-xhigh
+architect runners: grok-4.7-xhigh-fast, cursor-grok-4.6-xhigh
+interrogate reviewers: cursor-grok-4.6-xhigh, cursor-grok-4.6-high, grok-4.7-high
