@@ -12,4 +12,5 @@ Notes for the Teem Golf API repository.
 | [Decisions](decisions/README.md) | Why the repo is shaped this way |
 | [Features](features/health.md) | `GET /health` |
 | [Runbooks](runbooks/synth-and-deploy.md) | Synth and deploy |
+| [Cloud agent build](runbooks/cloud-agent-build.md) | How to trigger a Build |
 | [Troubleshooting](troubleshooting/README.md) | Failures you are likely to hit |

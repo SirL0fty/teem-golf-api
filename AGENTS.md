@@ -37,3 +37,11 @@ Use Bun. Do not add a pnpm, npm, or yarn lockfile.
 `libs/utils` writes `dist` when it builds. App typecheck and synth depend on that build. Nx runs the dependency first.
 
 Deploy order is the list in `cdk-deploy-order.txt`.
+
+## Cursor Cloud specific instructions
+
+The pinned Bun version is 1.4.3, from `packageManager` in `package.json`. A Cloud Agent Build already ran install and build. That install puts Bun on the machine when it is missing or is not 1.4.3, then runs `bun install --frozen-lockfile` and `bunx nx run-many -t build`. `libs/utils/dist` and the Nx cache are already on the snapshot.
+
+Run `tools/verify.sh`.
+
+`cdk synth` needs no AWS credentials. Set `AWS_EC2_METADATA_DISABLED=true`. Never deploy.
