@@ -31,6 +31,7 @@ describe('GolfApiStack', () => {
     expect(fn.Properties.Architectures).toEqual(['arm64']);
     expect(fn.Properties.MemorySize).toBe(128);
     expect(fn.Properties.Timeout).toBe(3);
+    expect(fn.Properties.ReservedConcurrentExecutions).toBe(5);
 
     const groups = Object.values(template.findResources('AWS::Logs::LogGroup'));
     expect(groups).toHaveLength(2);
@@ -47,7 +48,17 @@ describe('GolfApiStack', () => {
     }
     expect(api.Properties).not.toHaveProperty('Name');
     expect(api.Properties.ProtocolType).toBe('HTTP');
-    expect(template.findOutputs('HealthUrl')['HealthUrl']).toBeDefined();
+    template.hasResourceProperties('AWS::ApiGatewayV2::Stage', {
+      DefaultRouteSettings: {
+        ThrottlingRateLimit: 10,
+        ThrottlingBurstLimit: 20,
+      },
+      AccessLogSettings: {
+        Format:
+          '{"requestId":"$context.requestId","httpMethod":"$context.httpMethod","status":"$context.status"}',
+      },
+    });
+    expect(JSON.stringify(template.findOutputs('HealthUrl'))).toContain('/health');
     expect(bundledHandler()).toContain('Service name is required.');
   }, { timeout: 120_000 });
 });

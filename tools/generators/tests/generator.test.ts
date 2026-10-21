@@ -6,6 +6,7 @@ import { MODULE_BOUNDARIES_PATH, parseModuleBoundaries } from '../src/boundaries
 describe('app generator', () => {
   it('writes AGENTS.md, README.md, and a scope constraint', async () => {
     const tree = createTreeWithEmptyWorkspace({ formatter: 'none' });
+    tree.write('cdk-deploy-order.txt', 'golf-api\n');
     tree.write(
       MODULE_BOUNDARIES_PATH,
       `${JSON.stringify(
@@ -33,6 +34,17 @@ describe('app generator', () => {
     expect(tree.exists('apps/sample-api/project.json')).toBe(true);
     const pkg = tree.read('apps/sample-api/package.json', 'utf8');
     expect(pkg).toContain('./bin/sample-api.ts');
+    expect(pkg).toContain('@teem-labs/utils');
+
+    const bin = tree.read('apps/sample-api/bin/sample-api.ts', 'utf8');
+    expect(bin?.startsWith('#!')).toBe(false);
+
+    const stackTest = tree.read('apps/sample-api/tests/sample-api-stack.test.ts', 'utf8');
+    expect(stackTest).toContain("resourceCountIs('AWS::Lambda::Function', 0)");
+    expect(stackTest).toContain('runtimeLimitsFrom');
+
+    const order = tree.read('cdk-deploy-order.txt', 'utf8');
+    expect(order).toBe('golf-api\nsample-api\n');
 
     const raw = tree.read(MODULE_BOUNDARIES_PATH, 'utf8');
     if (raw === null) {
@@ -40,6 +52,17 @@ describe('app generator', () => {
     }
     const tags = parseModuleBoundaries(JSON.parse(raw)).depConstraints.map((entry) => entry.sourceTag);
     expect(tags).toContain('scope:sample-api');
+  });
+
+  it('does not duplicate an app already listed in deploy order', async () => {
+    const tree = createTreeWithEmptyWorkspace({ formatter: 'none' });
+    tree.write(MODULE_BOUNDARIES_PATH, '{"depConstraints":[]}\n');
+    tree.write('cdk-deploy-order.txt', 'sample-api\n');
+
+    await appGenerator(tree, { name: 'sample-api' });
+
+    expect(tree.read('cdk-deploy-order.txt', 'utf8')).toBe('sample-api\n');
+    expect(tree.exists('apps/sample-api/AGENTS.md')).toBe(true);
   });
 
   it('refuses to overwrite an existing app', async () => {
