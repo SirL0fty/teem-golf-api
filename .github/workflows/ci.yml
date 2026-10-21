@@ -2,9 +2,6 @@ name: CI
 
 on:
   pull_request:
-    branches:
-      - "**"
-      - "cursor/**"
   push:
     branches:
       - main
@@ -37,3 +34,11 @@ jobs:
         env:
           AWS_EC2_METADATA_DISABLED: "true"
           CDK_DISABLE_CLI_TELEMETRY: "1"
+
+  cloud-install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate environment.json and install twice
+        run: bash tools/check-cloud-install.sh
