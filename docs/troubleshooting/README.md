@@ -16,6 +16,6 @@ The health Lambda bundles with esbuild. `esbuild` is a dev dependency of `golf-a
 
 `GolfApiStack` does not set an account or a region. Clear `AWS_PROFILE` and related credential variables, then synth again. A lookup that needs an account is a bug in this scaffold.
 
-## Typecheck cannot find `@teem-labs/utils`
+## Typecheck or esbuild cannot find `@teem-labs/utils`
 
-Build the library first. `bunx nx run utils:build` writes `libs/utils/dist`. The app targets depend on that build.
+Build the library first. `bunx nx run utils:build` writes `libs/utils/dist`. `typecheck`, `test`, `synth`, `deploy`, and `diff` depend on that build. A direct `cdk diff` from the app directory does not. Run the Nx target, or build utils yourself, before esbuild bundles the health handler.

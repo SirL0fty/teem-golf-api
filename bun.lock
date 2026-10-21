@@ -15,6 +15,20 @@
         "typescript-eslint": "^8.46.0",
       },
     },
+    "apps/budgets": {
+      "name": "@teem-labs/budgets",
+      "version": "0.0.0",
+      "dependencies": {
+        "aws-cdk-lib": "^2.273.0",
+        "constructs": "^10.5.0",
+      },
+      "devDependencies": {
+        "@types/bun": "^1.2.0",
+        "@types/node": "^24.10.1",
+        "aws-cdk": "2.1146.0",
+        "typescript": "~5.9.3",
+      },
+    },
     "apps/golf-api": {
       "name": "@teem-labs/golf-api",
       "version": "0.0.0",
@@ -392,6 +406,8 @@
     "@nx/workspace": ["@nx/workspace@23.3.0", "", { "dependencies": { "@nx/devkit": "23.3.0", "@zkochan/js-yaml": "0.0.7", "chalk": "^4.1.0", "nx": "23.3.0", "picomatch": "4.0.4", "semver": "^7.6.3", "tslib": "^2.3.0", "yargs-parser": "21.1.1" } }, "sha512-tAGzqqjk+qtCeJTp+bBEANR9aGkmzo4WxWUBQCZHE4A7quWlCDRkpcAg8OG/cDMX8Kwa6/yw+NSYeH1JuE0eCg=="],
 
     "@phenomnomnominal/tsquery": ["@phenomnomnominal/tsquery@6.2.0", "", { "dependencies": { "@types/esquery": "^1.5.4", "esquery": "^1.7.0" }, "peerDependencies": { "typescript": ">3.0.0" } }, "sha512-Vo9nkhfZxDB/sBiqIY3pjDC4mOSyure+AFlEW5hcy/tRE82MqCXjRN4InnVNMldinRt0dLYqg4HAU2XPq5e1LA=="],
+
+    "@teem-labs/budgets": ["@teem-labs/budgets@workspace:apps/budgets"],
 
     "@teem-labs/generators": ["@teem-labs/generators@workspace:tools/generators"],
 

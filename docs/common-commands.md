@@ -8,11 +8,16 @@ bun run typecheck
 bun run test
 bun run build
 bun run synth
+bunx nx run budgets:synth
+bunx nx run budgets:deploy
 bunx nx run golf-api:deploy
+bunx nx run golf-api:diff
 bun run generate:app -- website
 ```
 
-`tools/verify.sh` runs install, lint, typecheck, test, build, and synth with AWS credential variables cleared.
+`generate:app` is `nx g @teem-labs/generators:app`. It writes the app and appends the name to `cdk-deploy-order.txt`. Run `bun install` after it so the new workspace package is linked.
+
+`tools/verify.sh` runs install, lint, typecheck, test, build, and synth with AWS credential variables cleared. It then deletes `cdk.out` and synths again to confirm the cache restores the template. It also deletes `libs/utils/dist` and runs `golf-api:diff` to confirm utils builds before esbuild bundles the handler.
 
 To check one project, replace the target and the project name:
 

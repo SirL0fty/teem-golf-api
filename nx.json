@@ -23,6 +23,13 @@
     },
     "synth": {
       "cache": true,
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/cdk.out"]
+    },
+    "deploy": {
+      "dependsOn": ["^build"]
+    },
+    "diff": {
       "dependsOn": ["^build"]
     }
   }

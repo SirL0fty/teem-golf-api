@@ -9,4 +9,4 @@ Builds read the default branch. Do this after `.cursor/environment.json` is on `
 
 A successful Build runs `install` and saves a disk snapshot. The next agent boots from that snapshot. `libs/utils/dist` and the Nx cache are already present.
 
-The decision is [Cloud agents instead of worktrees, and the environment snapshot](../decisions/0002-cloud-agents-and-snapshot.md).
+The decision is [Cloud agents instead of worktrees, and the environment snapshot](../decisions/0003-cloud-agents-and-snapshot.md).

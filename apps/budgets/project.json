@@ -1,0 +1,46 @@
+{
+  "name": "budgets",
+  "root": "apps/budgets",
+  "sourceRoot": "apps/budgets/src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "tags": ["type:app", "scope:budgets"],
+  "targets": {
+    "lint": {
+      "command": "eslint .",
+      "options": {
+        "cwd": "apps/budgets"
+      }
+    },
+    "typecheck": {
+      "command": "tsc --noEmit -p tsconfig.json",
+      "options": {
+        "cwd": "apps/budgets"
+      }
+    },
+    "test": {
+      "command": "bun test",
+      "options": {
+        "cwd": "apps/budgets"
+      }
+    },
+    "build": {
+      "command": "tsc --noEmit -p tsconfig.json",
+      "options": {
+        "cwd": "apps/budgets"
+      }
+    },
+    "synth": {
+      "command": "bun run synth",
+      "options": {
+        "cwd": "apps/budgets"
+      }
+    },
+    "deploy": {
+      "command": "bun run deploy",
+      "options": {
+        "cwd": "apps/budgets"
+      }
+    }
+  }
+}

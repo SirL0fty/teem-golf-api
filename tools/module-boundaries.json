@@ -17,6 +17,10 @@
       "onlyDependOnLibsWithTags": ["scope:shared"]
     },
     {
+      "sourceTag": "scope:budgets",
+      "onlyDependOnLibsWithTags": ["scope:budgets", "scope:shared"]
+    },
+    {
       "sourceTag": "scope:golf-api",
       "onlyDependOnLibsWithTags": ["scope:golf-api", "scope:shared"]
     }

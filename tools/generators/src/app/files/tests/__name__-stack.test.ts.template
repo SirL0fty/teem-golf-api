@@ -1,12 +1,22 @@
 import { describe, expect, it } from 'bun:test';
 import { Template } from 'aws-cdk-lib/assertions';
 import { App } from 'aws-cdk-lib';
+import { runtimeLimitsFrom } from '@teem-labs/utils';
 import { <%= className %> } from '../src/stacks/<%= name %>-stack.js';
 
 describe('<%= className %>', () => {
-  it('synthesizes', () => {
+  it('ships no Lambda or HTTP API until the app adds them', () => {
     const template = Template.fromStack(new <%= className %>(new App(), 'TestStack'));
 
-    expect(template.toJSON().Resources ?? {}).toEqual({});
+    template.resourceCountIs('AWS::Lambda::Function', 0);
+    template.resourceCountIs('AWS::ApiGatewayV2::Api', 0);
+  });
+
+  it('uses the shared throttle and concurrency defaults', () => {
+    expect(runtimeLimitsFrom({})).toEqual({
+      throttleRate: 10,
+      throttleBurst: 20,
+      reservedConcurrentExecutions: 5,
+    });
   });
 });

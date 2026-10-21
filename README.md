@@ -1,10 +1,11 @@
 # Teem Golf API
 
-TypeScript workspace for the Teem Golf API. Nx runs tasks. Bun installs packages. `apps/golf-api` is the AWS CDK app.
+TypeScript workspace for the Teem Golf API. Nx runs tasks. Bun installs packages. `apps/golf-api` is the HTTP API. `apps/budgets` is the monthly cost budget.
 
 ```text
+apps/budgets         CDK app, TeemGolfBudgets
 apps/golf-api        CDK app, GET /health
-libs/utils           shared helpers, including healthBody
+libs/utils           shared helpers, including healthBody and runtime limits
 tools/generators     nx g @teem-labs/generators:app <name>
 docs/                product notes, standards, and runbooks
 ```
@@ -30,12 +31,15 @@ bun install
 bunx nx run website:synth
 ```
 
-The new app includes `AGENTS.md` and `README.md`. Its stack is empty until you add resources. `cdk deploy` from that app uses the account and region in your AWS environment.
+The new app includes `AGENTS.md` and `README.md`. Its stack is empty until you add resources. The command appends the app to `cdk-deploy-order.txt`. `cdk deploy` from that app uses the account and region in your AWS environment.
 
 ## Deploy
 
-`cdk-deploy-order.txt` lists apps from top to bottom. Deploy golf-api with:
+`cdk-deploy-order.txt` lists apps from top to bottom. Deploy budgets, then golf-api.
 
 ```bash
+bunx nx run budgets:deploy
 bunx nx run golf-api:deploy
 ```
+
+Pass `budgetEmail` on the budgets deploy when you want notifications. Do not commit the address.

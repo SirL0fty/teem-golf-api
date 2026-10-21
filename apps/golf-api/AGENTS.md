@@ -1,6 +1,6 @@
 # golf-api
 
-`golf-api` is the Teem Golf API CDK app. `GolfApiStack` publishes `GET /health` on an HTTP API. The handler is a Node.js 24 Lambda on arm64 with 128 MB and a 3 second timeout.
+`golf-api` is the Teem Golf API CDK app. `GolfApiStack` publishes `GET /health` on an HTTP API. The handler is a Node.js 24 Lambda on arm64 with 128 MB, a 3 second timeout, and 5 reserved concurrent executions.
 
 ## Commands
 
@@ -23,8 +23,8 @@ bunx nx run golf-api:deploy
 
 ## Gotchas
 
-`cdk synth` bundles the Lambda with esbuild and reads `bun.lock`. It does not need AWS credentials. Build `utils` first. The Nx targets depend on `utils:build`.
+`cdk synth` bundles the Lambda with esbuild and reads `bun.lock`. It does not need AWS credentials. `synth`, `deploy`, and `diff` build `utils` first.
 
-The HTTP API and the Lambda do not set physical names. CloudFormation generates them.
+The HTTP API and the Lambda do not set physical names. CloudFormation generates them. HealthUrl ends at `/health`.
 
-Log groups keep one week of logs and are deleted with the stack.
+The stage allows 10 requests per second and a burst of 20. Context keys `throttleRate`, `throttleBurst`, and `reservedConcurrentExecutions` override the defaults from `runtimeLimitsFrom`. Log groups keep one week of logs and are deleted with the stack. Access logs store the request id, the method, and the status.
