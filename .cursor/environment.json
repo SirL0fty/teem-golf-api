@@ -1,0 +1,4 @@
+{
+  "name": "teem-golf-api",
+  "install": "bash .cursor/cloud-install.sh"
+}
