@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "app": {
+      "factory": "./src/app/generator",
+      "schema": "./src/app/schema.json",
+      "description": "Create a CDK app with the Teem Labs layout."
+    }
+  }
+}

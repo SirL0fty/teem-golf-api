@@ -1,0 +1,24 @@
+{
+  "depConstraints": [
+    {
+      "sourceTag": "type:app",
+      "onlyDependOnLibsWithTags": ["type:package"]
+    },
+    {
+      "sourceTag": "type:package",
+      "onlyDependOnLibsWithTags": ["type:package"]
+    },
+    {
+      "sourceTag": "type:tool",
+      "onlyDependOnLibsWithTags": ["type:tool", "type:package"]
+    },
+    {
+      "sourceTag": "scope:shared",
+      "onlyDependOnLibsWithTags": ["scope:shared"]
+    },
+    {
+      "sourceTag": "scope:golf-api",
+      "onlyDependOnLibsWithTags": ["scope:golf-api", "scope:shared"]
+    }
+  ]
+}

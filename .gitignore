@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+.cdk.staging/
+cdk.out/
+.nx/cache
+.nx/workspace-data
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo

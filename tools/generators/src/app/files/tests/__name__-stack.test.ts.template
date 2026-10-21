@@ -1,0 +1,12 @@
+import { describe, expect, it } from 'bun:test';
+import { Template } from 'aws-cdk-lib/assertions';
+import { App } from 'aws-cdk-lib';
+import { <%= className %> } from '../src/stacks/<%= name %>-stack.js';
+
+describe('<%= className %>', () => {
+  it('synthesizes', () => {
+    const template = Template.fromStack(new <%= className %>(new App(), 'TestStack'));
+
+    expect(template.toJSON().Resources ?? {}).toEqual({});
+  });
+});

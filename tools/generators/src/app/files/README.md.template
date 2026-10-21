@@ -1,0 +1,10 @@
+# <%= name %>
+
+CDK app for `<%= name %>`. `<%= className %>` defines no resources yet.
+
+```bash
+bunx nx run <%= name %>:synth
+bunx nx run <%= name %>:deploy
+```
+
+Synth runs locally. Deploy uses the AWS account and region in your environment.

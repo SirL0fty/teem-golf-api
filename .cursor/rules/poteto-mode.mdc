@@ -1,0 +1,14 @@
+---
+description: Start non-trivial work in poteto-mode and keep the team stack.
+alwaysApply: true
+---
+
+For a non-trivial task, invoke `/poteto-mode` first and follow its playbook. Non-trivial work is a feature, a bug fix, a refactor, a performance change, a review, or shipping. A trivial question does not need the mode.
+
+Delegates that write code set `subagent_type` to `poteto-agent`. A routed pstack skill such as `/interrogate` picks its own subagent type. Keep that subagent type.
+
+pstack model choices come from the `pstack-models` rule at `~/.cursor/rules/pstack-models.mdc`. The budget is large. Build roles use `grok-4.7-xhigh-fast`. Judgment uses `claude-opus-5-5-xhigh`. Interrogate reviewers use both models. If that rule file is missing, use these models.
+
+The stack is TypeScript, Nx, and Bun. Never use pnpm. Do not add AWS CDK unless Mike asks.
+
+Source control is GitHub.

@@ -1,0 +1,31 @@
+{
+  "name": "@teem-labs/golf-api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./bin/golf-api.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "bun test",
+    "build": "tsc --noEmit -p tsconfig.json",
+    "synth": "cdk synth",
+    "deploy": "cdk deploy",
+    "diff": "cdk diff"
+  },
+  "dependencies": {
+    "@teem-labs/utils": "workspace:*",
+    "aws-cdk-lib": "^2.273.0",
+    "constructs": "^10.5.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.164",
+    "@types/bun": "^1.2.0",
+    "@types/node": "^24.10.1",
+    "aws-cdk": "2.1146.0",
+    "esbuild": "^0.28.2",
+    "typescript": "~5.9.3"
+  }
+}

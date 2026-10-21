@@ -1,0 +1,26 @@
+# <%= name %>
+
+`<%= name %>` is an AWS CDK app. `<%= className %>` is empty. Add constructs in `src/constructs` and compose them from `src/stacks`.
+
+## Commands
+
+From the repository root:
+
+```bash
+bunx nx run <%= name %>:lint
+bunx nx run <%= name %>:typecheck
+bunx nx run <%= name %>:test
+bunx nx run <%= name %>:build
+bunx nx run <%= name %>:synth
+bunx nx run <%= name %>:deploy
+```
+
+`deploy` uses the AWS account and region in your environment. This repo does not store account ids.
+
+## Layout
+
+`src/functions` is pure logic. `src/lambdas` is the handler. `src/constructs` is CDK. `src/stacks` composes constructs. Imports go in that direction only.
+
+## Gotchas
+
+`cdk synth` does not need AWS credentials while the stack stays environment-agnostic. ESLint rejects imports that skip a layer, and imports of another app.

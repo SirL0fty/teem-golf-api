@@ -1,0 +1,33 @@
+{
+  "name": "generators",
+  "root": "tools/generators",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "tags": ["type:tool"],
+  "targets": {
+    "lint": {
+      "command": "eslint .",
+      "options": {
+        "cwd": "tools/generators"
+      }
+    },
+    "typecheck": {
+      "command": "tsc --noEmit -p tsconfig.json",
+      "options": {
+        "cwd": "tools/generators"
+      }
+    },
+    "test": {
+      "command": "bun test",
+      "options": {
+        "cwd": "tools/generators"
+      }
+    },
+    "build": {
+      "command": "tsc --noEmit -p tsconfig.json",
+      "options": {
+        "cwd": "tools/generators"
+      }
+    }
+  }
+}
