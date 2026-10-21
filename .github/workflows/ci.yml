@@ -34,3 +34,7 @@ jobs:
         env:
           AWS_EC2_METADATA_DISABLED: "true"
           CDK_DISABLE_CLI_TELEMETRY: "1"
+      - name: Verify skill checks
+        run: |
+          bunx tsc --noEmit -p .cursor/skills/verify-golf-api/scripts/tsconfig.json
+          bun test ./.cursor/skills/verify-golf-api/scripts/golf-verify.test.ts

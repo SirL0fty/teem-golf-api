@@ -12,4 +12,5 @@ Notes for the Teem Golf API repository.
 | [Decisions](decisions/README.md) | Why the repo is shaped this way |
 | [Features](features/health.md) | `GET /health` |
 | [Runbooks](runbooks/synth-and-deploy.md) | Synth and deploy |
+| [Verify locally](runbooks/verify-locally.md) | Call `GET /health` without AWS |
 | [Troubleshooting](troubleshooting/README.md) | Failures you are likely to hit |

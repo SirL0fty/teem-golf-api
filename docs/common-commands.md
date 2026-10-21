@@ -12,7 +12,9 @@ bunx nx run golf-api:deploy
 bun run generate:app -- website
 ```
 
-`tools/verify.sh` runs install, lint, typecheck, test, build, and synth with AWS credential variables cleared.
+`tools/verify.sh` runs install, lint, typecheck, test, build, and synth with AWS credential variables cleared. It also checks the local verification scripts.
+
+Call `GET /health` without AWS by following `docs/runbooks/verify-locally.md`.
 
 To check one project, replace the target and the project name:
 

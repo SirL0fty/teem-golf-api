@@ -1,0 +1,11 @@
+{
+  "extends": "../../../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node", "bun"],
+    "typeRoots": ["../../../../apps/golf-api/node_modules/@types"],
+    "noEmit": true
+  },
+  "include": ["./*.ts"]
+}

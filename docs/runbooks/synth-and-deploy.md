@@ -12,6 +12,8 @@ bunx nx run golf-api:synth
 
 You do not need AWS credentials. The command bundles the health Lambda with esbuild. The template is under `apps/golf-api/cdk.out`. That directory is gitignored.
 
+To call `GET /health` on this machine, follow [Verify locally](verify-locally.md). That path does not create AWS resources.
+
 ## Deploy
 
 Read `cdk-deploy-order.txt` from top to bottom. Deploy each app in that order. There is one app.

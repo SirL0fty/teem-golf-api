@@ -13,3 +13,5 @@ bun run typecheck
 bun run test
 bun run build
 bun run synth
+bunx tsc --noEmit -p .cursor/skills/verify-golf-api/scripts/tsconfig.json
+bun test ./.cursor/skills/verify-golf-api/scripts/golf-verify.test.ts

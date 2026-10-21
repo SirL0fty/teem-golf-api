@@ -13,7 +13,11 @@ bun run build
 bun run synth
 ```
 
-`tools/verify.sh` runs that list after clearing AWS credential variables.
+`tools/verify.sh` runs that list after clearing AWS credential variables. It also typechecks `.cursor/skills/verify-golf-api` and runs that skill's parser tests.
+
+## Verify locally
+
+`.cursor/skills/verify-golf-api/SKILL.md` is the local driver for `GET /health`, the synthesised template, and `bun run generate:app`. It does not deploy. Start with `bun .cursor/skills/verify-golf-api/scripts/golf-verify.ts launch`. When the map drifts, run `/maintain-verification-skill`.
 
 Create an app with:
 
