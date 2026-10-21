@@ -11,6 +11,7 @@ const constructDir = dirname(fileURLToPath(import.meta.url));
 
 export interface HealthFunctionProps {
   readonly logs: LogPolicy;
+  readonly reservedConcurrentExecutions: number;
 }
 
 export class HealthFunction extends Construct {
@@ -31,6 +32,7 @@ export class HealthFunction extends Construct {
       architecture: Architecture.ARM_64,
       memorySize: 128,
       timeout: Duration.seconds(3),
+      reservedConcurrentExecutions: props.reservedConcurrentExecutions,
       logGroup,
       depsLockFilePath: join(constructDir, '../../../../bun.lock'),
       bundling: {

@@ -6,7 +6,7 @@ HTTP API for Teem Golf. `GET /health` returns JSON:
 { "status": "ok", "service": "golf-api" }
 ```
 
-The stack is `GolfApiStack` in `src/stacks/golf-api-stack.ts`.
+The stack is `GolfApiStack` in `src/stacks/golf-api-stack.ts`. HealthUrl is the `/health` route. The stage throttles at 10 requests per second with a burst of 20. The Lambda reserves 5 concurrent executions.
 
 ```bash
 bunx nx run golf-api:test

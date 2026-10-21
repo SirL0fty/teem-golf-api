@@ -24,3 +24,7 @@ bunx nx run <%= name %>:deploy
 ## Gotchas
 
 `cdk synth` does not need AWS credentials while the stack stays environment-agnostic. ESLint rejects imports that skip a layer, and imports of another app.
+
+When you add an HTTP API, set stage throttle from `runtimeLimitsFrom` in `@teem-labs/utils`. The defaults are 10 requests per second and a burst of 20. When you add a Lambda, set `reservedConcurrentExecutions` from the same helper. The default is 5. Context keys are `throttleRate`, `throttleBurst`, and `reservedConcurrentExecutions`.
+
+`generate:app` appends this app to `cdk-deploy-order.txt`.

@@ -12,4 +12,4 @@ Imports move from stacks to constructs, and from lambdas to functions. Functions
 
 AWS CDK guidance often starts from one application in one repository, because a shared pipeline increases blast radius. This repository still holds more than one CDK app when we add them. Nx runs the projects a change affects. Each app synths and deploys on its own, so a deploy of `golf-api` does not deploy a sibling app. The Lambda handler and the constructs that ship it stay in that same app.
 
-`golf-api` is the only app today.
+`budgets` and `golf-api` are the apps today. `budgets` is a monthly cost budget with no Lambda. `golf-api` is the HTTP API. Deploy `budgets` first. The list is `cdk-deploy-order.txt`.

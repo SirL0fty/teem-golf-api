@@ -1,8 +1,8 @@
-#!/usr/bin/env node
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { App } from 'aws-cdk-lib';
+import { runtimeLimitsFrom } from '@teem-labs/utils';
 import { defaultLogPolicy } from '../src/constructs/log-policy.js';
 import { GolfApiStack } from '../src/stacks/golf-api-stack.js';
 
@@ -20,12 +20,16 @@ function readContext(cdkJsonPath: string): Record<string, unknown> {
   return { ...context };
 }
 
-export function createApp(): App {
+export function createApp(overrides: Readonly<Record<string, unknown>> = {}): App {
+  const context = { ...readContext(join(appDir, '../cdk.json')), ...overrides };
   const app = new App({
     outdir: join(appDir, '../cdk.out'),
-    context: readContext(join(appDir, '../cdk.json')),
+    context,
   });
-  new GolfApiStack(app, 'GolfApiStack', { logs: defaultLogPolicy });
+  new GolfApiStack(app, 'GolfApiStack', {
+    logs: defaultLogPolicy,
+    limits: runtimeLimitsFrom(context),
+  });
   return app;
 }
 

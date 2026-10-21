@@ -16,6 +16,8 @@ import type { LogPolicy } from './log-policy.js';
 export interface ServiceHttpApiProps {
   readonly handler: IFunction;
   readonly logs: LogPolicy;
+  readonly throttleRate: number;
+  readonly throttleBurst: number;
 }
 
 export class ServiceHttpApi extends Construct {
@@ -43,13 +45,16 @@ export class ServiceHttpApi extends Construct {
       httpApi: api,
       stageName: '$default',
       autoDeploy: true,
+      throttle: {
+        rateLimit: props.throttleRate,
+        burstLimit: props.throttleBurst,
+      },
       accessLogSettings: {
         destination: new LogGroupLogDestination(accessLogs),
         format: AccessLogFormat.custom(
           JSON.stringify({
             requestId: '$context.requestId',
             httpMethod: '$context.httpMethod',
-            path: '$context.path',
             status: '$context.status',
           }),
         ),
@@ -64,6 +69,6 @@ export class ServiceHttpApi extends Construct {
       }),
     });
 
-    this.url = stage.url;
+    this.url = `${stage.url}health`;
   }
 }

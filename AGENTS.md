@@ -1,6 +1,6 @@
 # Teem Golf API
 
-Nx and Bun workspace for the Teem Golf API. The CDK app is `apps/golf-api`. Shared code is `libs/`. The app generator is `tools/generators`.
+Nx and Bun workspace for the Teem Golf API. The CDK apps are `apps/budgets` and `apps/golf-api`. Shared code is `libs/`. The app generator is `tools/generators`.
 
 ## Commands
 
@@ -22,7 +22,7 @@ bun run generate:app -- website
 bun install
 ```
 
-The generator writes `AGENTS.md` and `README.md` for the new app. It adds a `scope:<name>` row to `tools/module-boundaries.json`.
+The generator writes `AGENTS.md` and `README.md` for the new app. It adds a `scope:<name>` row to `tools/module-boundaries.json`. It appends the app name to `cdk-deploy-order.txt`.
 
 ## Layout
 
@@ -34,6 +34,6 @@ Use Bun. Do not add a pnpm, npm, or yarn lockfile.
 
 `cdk synth` for `golf-api` bundles the health Lambda with esbuild. It does not need AWS credentials. Do not store account ids in this repo.
 
-`libs/utils` writes `dist` when it builds. App typecheck and synth depend on that build. Nx runs the dependency first.
+`libs/utils` writes `dist` when it builds. App typecheck, synth, deploy, and diff depend on that build. Nx runs the dependency first. `synth` caches `cdk.out` and restores it on a cache hit.
 
-Deploy order is the list in `cdk-deploy-order.txt`.
+Deploy order is the list in `cdk-deploy-order.txt`. `budgets` is first. `golf-api` is second. Stage throttle defaults are 10 requests per second and a burst of 20. Health Lambda reserved concurrency defaults to 5. Details are in `docs/decisions/0002-cost-limits.md`.

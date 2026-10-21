@@ -5,6 +5,7 @@ import { MODULE_BOUNDARIES_PATH, parseModuleBoundaries, withScopeConstraint } fr
 
 const generatorDirectory = dirname(fileURLToPath(import.meta.url));
 const appNamePattern = /^[a-z][a-z0-9]*(-[a-z0-9]+)*$/;
+const deployOrderPath = 'cdk-deploy-order.txt';
 
 export interface AppGeneratorSchema {
   readonly name: string;
@@ -33,6 +34,8 @@ export default async function appGenerator(tree: Tree, schema: AppGeneratorSchem
     throw new Error(`${destination} already exists.`);
   }
 
+  appendDeployOrder(tree, name);
+
   const raw = tree.read(MODULE_BOUNDARIES_PATH, 'utf8');
   if (raw === null) {
     throw new Error(`Missing ${MODULE_BOUNDARIES_PATH}.`);
@@ -48,4 +51,16 @@ export default async function appGenerator(tree: Tree, schema: AppGeneratorSchem
     tmpl: '',
   });
   await formatFiles(tree);
+}
+
+function appendDeployOrder(tree: Tree, name: string): void {
+  const raw = tree.read(deployOrderPath, 'utf8');
+  const lines = (raw ?? '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+  if (lines.includes(name)) {
+    return;
+  }
+  tree.write(deployOrderPath, `${[...lines, name].join('\n')}\n`);
 }
