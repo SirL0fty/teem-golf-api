@@ -1,0 +1,50 @@
+---
+description: Run pstack subagents as Cursor cloud agents and pin this repo's Grok models.
+alwaysApply: true
+---
+
+# Cloud agents
+
+Start every subagent with `environment` set to `cloud` and `run_in_background` set to true. That includes swarm workers, arena runners, architect runners, code delegates, and verifiers.
+
+Pass `cloud_base_branch` when the subagent must start from a branch other than the repository default.
+
+Each writer gets its own `cursor/` branch. Do not create a git worktree for that work.
+
+Set `environment` to `local` only when the task needs the user's own machine. That covers a simulator, local IDE state, a transcript that exists only on that machine, or a credential that exists only there.
+
+In `/arena` Phase A step 4, "own output location" means that runner's own cloud agent and its own `cursor/` branch.
+
+A cloud brief stands alone. State the goal, the files in scope, the base branch, and how to tell the work is done.
+
+Every build brief ends with this sentence.
+
+`use /control-app to verify and show me a video and screenshots as proof.`
+
+# Models
+
+Cloud agents cannot read `~/.cursor/rules`. These lines are the pstack model table for this repo. Use Grok models only. If the tool rejects a slug, use the nearest Grok slug and say which one you used.
+
+Read each line as one role, then a colon, then one or more slugs. Split slugs on commas. The role names `feature, refactoring` and `reflect judgment, divergent, synthesizer` contain commas, and each is still one role. Start one subagent per slug. `arena cross-judge pool` is the exception. Pick one slug from that pool, and pick a slug other than the model that wrote the change when the pool contains one.
+
+Mike wants reviewers on a different Grok model from the builder, so a check sees the work differently. Builders use `grok-4.7-xhigh-fast`.
+
+# budget: large (xhigh)
+feature, refactoring: grok-4.7-xhigh-fast
+bug-fix: grok-4.7-xhigh-fast
+perf-issue: grok-4.7-xhigh-fast
+hillclimb: grok-4.7-xhigh-fast
+judgment and prose: grok-4.7-xhigh
+hardest tasks: grok-4.7-xhigh
+how explorer: grok-4.7-xhigh-fast
+how explainer: grok-4.7-xhigh
+why investigators: grok-4.7-xhigh-fast, grok-4.6-xhigh
+why synthesizer: grok-4.7-xhigh
+reflect tooling: grok-4.7-xhigh-fast
+reflect divergent: grok-4.6-xhigh
+reflect judgment, divergent, synthesizer: grok-4.6-xhigh
+arena runners: grok-4.7-xhigh, grok-4.6-xhigh
+arena cross-judge pool: grok-4.6-xhigh, grok-4.5-high
+swarm workers: grok-4.7-xhigh-fast
+architect runners: grok-4.7-xhigh, grok-4.6-xhigh
+interrogate reviewers: grok-4.6-xhigh, grok-4.5-high, grok-4.7-xhigh

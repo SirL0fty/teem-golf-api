@@ -7,8 +7,8 @@ For a non-trivial task, invoke `/poteto-mode` first and follow its playbook. Non
 
 Delegates that write code set `subagent_type` to `poteto-agent`. A routed pstack skill such as `/interrogate` picks its own subagent type. Keep that subagent type.
 
-pstack model choices come from the `pstack-models` rule at `~/.cursor/rules/pstack-models.mdc`. The budget is large. Build roles use `grok-4.7-xhigh-fast`. Judgment uses `claude-opus-5-5-xhigh`. Interrogate reviewers use both models. If that rule file is missing, use these models.
+pstack model choices for this repo are in `.cursor/rules/pstack-cloud.mdc`. The budget is large. Build roles use `grok-4.7-xhigh-fast`. Judgment uses `grok-4.7-xhigh`.
 
-The stack is TypeScript, Nx, and Bun. Never use pnpm. Do not add AWS CDK unless Mike asks.
+The stack is TypeScript, Nx, Bun, and AWS CDK. Never use pnpm. Mike asked for AWS CDK in this repo. The CDK app is `apps/golf-api`.
 
 Source control is GitHub.
