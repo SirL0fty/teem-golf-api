@@ -2,6 +2,9 @@ name: CI
 
 on:
   pull_request:
+    branches:
+      - "**"
+      - "cursor/**"
   push:
     branches:
       - main
