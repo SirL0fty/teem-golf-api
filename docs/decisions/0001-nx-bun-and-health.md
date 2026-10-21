@@ -17,3 +17,9 @@ The current Origin app scaffold leaves `GolfApiStack` empty. The older branch ad
 ## No pinned account
 
 The stack does not set an AWS account or region. Deploy uses the caller environment. Log groups keep one week of logs and are deleted with the stack. That retention is the policy from the older app, and it does not name an account.
+
+## Rule edits
+
+The Origin poteto-mode rule says source control is Origin. This copy says GitHub, because this repository is on GitHub. Git history cannot show the old line. The file was added already updated.
+
+That same rule says not to add AWS CDK unless Mike asks. This port adds `GolfApiStack` because the request asked for the Origin CDK app. Further CDK apps still wait for that ask.
